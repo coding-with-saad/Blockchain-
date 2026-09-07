@@ -1,0 +1,16 @@
+## 🌟 Fungible Tokens (ERC-20)
+
+* Identical: Every token is exactly the same.
+* Interchangeable: One token can be swapped for another.
+* Divisible: You can own a fraction of one.
+* Example: Digital currencies or utility points.
+
+------------------------------
+## 🎨 Non-Fungible Tokens (NFTs)
+
+* Unique: Each token has distinct metadata.
+* Non-interchangeable: Cannot be swapped one-for-one.
+* Indivisible: You must own the whole asset.
+* Example: Digital art or virtual real estate.
+
+

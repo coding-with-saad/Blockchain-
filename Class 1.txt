@@ -1,0 +1,39 @@
+Diffrence b/w web 2.0 and web 3.0 and what is IPFS?
+how blocks are linked in blockchain?
+previous hash ?
+what is SHA 256?
+blockchain block consist of which things ?
+difference b/w encryption and hashing?
+purpose of hashing in blockchain?
+private and public key?
+genesis block ?
+what is DHCP?
+crypto wallets?
+binance?
+crypto currency and simple currency?
+types of block chain   public,private,consortion  
+internet intranet and extranet?
+what is FIAT?
+what is proof of work?
+smart context 
+proof of stake ?
+what is slashing?
+centralized and decentralized system
+block chain is decentralized system bitcoin is the best example 
+
+
+
+web 2.0    centralized system me based ha,data saved in cloud,IPFS used for critical data
+
+web 3.0   decentralized system me based hota ha, Data is secured through blockchain,
+server,blocks, validator  me save hota ha
+
+3 portion of block 1 is time stamp and 2 is data are lay in genesis block and one is missing only in genesis block
+genissis block is the first block of blocks
+agr interanet tha to blockchain ki kio zarrort pari?
+is liye pari kio ke encryption decryption hashing for better security
+
+bitcoin is a public blockchain
+
+
+ 
