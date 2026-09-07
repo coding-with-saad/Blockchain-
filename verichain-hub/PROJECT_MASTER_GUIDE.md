@@ -220,4 +220,3 @@ Use this exact 3-part script when presenting to your teacher:
 > *"First, in the **Issue Credential** tab, we enter a student's name and course. As we type, our app computes a 256-bit Keccak-256 hash in real time. When we click 'Write & Store', a transaction executes our Solidity `issueCredential` function, storing the struct in EVM state storage and emitting an event to the block.*  
 > *Next, in the **Verify & Fetch** tab, any employer can enter ID #4 and click 'Fetch'. Ethers.js performs a gasless `view` call, returning the tamper-proof certificate with an immutable green verification badge."*
 
-
