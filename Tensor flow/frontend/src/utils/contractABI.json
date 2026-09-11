@@ -1,0 +1,372 @@
+[
+    {
+        "inputs": [],
+        "name": "registerMfg",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function",
+        "constant": false
+    },
+    {
+        "inputs": [
+            {
+                "name": "_companyName",
+                "type": "string"
+            }
+        ],
+        "name": "registerMfg",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "_companyName",
+                "type": "string"
+            }
+        ],
+        "name": "registerTrn",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "_batchId",
+                "type": "string"
+            },
+            {
+                "name": "_productName",
+                "type": "string"
+            },
+            {
+                "name": "_productCategory",
+                "type": "string"
+            },
+            {
+                "name": "_manufacturingLocation",
+                "type": "string"
+            },
+            {
+                "name": "_estimatedDeliveryDate",
+                "type": "uint256"
+            }
+        ],
+        "name": "createBatch",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "_batchId",
+                "type": "string"
+            },
+            {
+                "name": "_location",
+                "type": "string"
+            },
+            {
+                "name": "_temperature",
+                "type": "int256"
+            },
+            {
+                "name": "_notes",
+                "type": "string"
+            }
+        ],
+        "name": "logCheckpoint",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "_batchId",
+                "type": "string"
+            }
+        ],
+        "name": "verifyBatch",
+        "outputs": [
+            {
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "_batchId",
+                "type": "string"
+            }
+        ],
+        "name": "getBatchInfo",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "name": "batchId",
+                        "type": "string"
+                    },
+                    {
+                        "name": "productName",
+                        "type": "string"
+                    },
+                    {
+                        "name": "productCategory",
+                        "type": "string"
+                    },
+                    {
+                        "name": "manufacturer",
+                        "type": "address"
+                    },
+                    {
+                        "name": "createdAt",
+                        "type": "uint256"
+                    },
+                    {
+                        "name": "manufacturingLocation",
+                        "type": "string"
+                    },
+                    {
+                        "name": "status",
+                        "type": "uint8"
+                    },
+                    {
+                        "name": "estimatedDeliveryDate",
+                        "type": "uint256"
+                    },
+                    {
+                        "name": "checkpointCount",
+                        "type": "uint256"
+                    },
+                    {
+                        "name": "hasAnomalies",
+                        "type": "bool"
+                    },
+                    {
+                        "name": "avgTemp",
+                        "type": "int256"
+                    },
+                    {
+                        "name": "minTemp",
+                        "type": "int256"
+                    },
+                    {
+                        "name": "maxTemp",
+                        "type": "int256"
+                    },
+                    {
+                        "name": "verificationCount",
+                        "type": "uint256"
+                    },
+                    {
+                        "name": "isAuthentic",
+                        "type": "bool"
+                    },
+                    {
+                        "name": "journey",
+                        "type": "tuple[]",
+                        "components": [
+                            {
+                                "name": "location",
+                                "type": "string"
+                            },
+                            {
+                                "name": "timestamp",
+                                "type": "uint256"
+                            },
+                            {
+                                "name": "temperature",
+                                "type": "int256"
+                            },
+                            {
+                                "name": "loggedBy",
+                                "type": "address"
+                            },
+                            {
+                                "name": "notes",
+                                "type": "string"
+                            },
+                            {
+                                "name": "tempAlert",
+                                "type": "bool"
+                            }
+                        ]
+                    }
+                ],
+                "type": "tuple"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "_batchId",
+                "type": "string"
+            }
+        ],
+        "name": "getCheckpoints",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "name": "location",
+                        "type": "string"
+                    },
+                    {
+                        "name": "timestamp",
+                        "type": "uint256"
+                    },
+                    {
+                        "name": "temperature",
+                        "type": "int256"
+                    },
+                    {
+                        "name": "loggedBy",
+                        "type": "address"
+                    },
+                    {
+                        "name": "notes",
+                        "type": "string"
+                    },
+                    {
+                        "name": "tempAlert",
+                        "type": "bool"
+                    }
+                ],
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getAllBatches",
+        "outputs": [
+            {
+                "name": "",
+                "type": "string[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "_manufacturer",
+                "type": "address"
+            }
+        ],
+        "name": "getBatchesByMfg",
+        "outputs": [
+            {
+                "name": "",
+                "type": "string[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "name": "_batchId",
+                "type": "string"
+            }
+        ],
+        "name": "getStats",
+        "outputs": [
+            {
+                "name": "checkpointCount",
+                "type": "uint256"
+            },
+            {
+                "name": "hasAnomalies",
+                "type": "bool"
+            },
+            {
+                "name": "avgTemp",
+                "type": "int256"
+            },
+            {
+                "name": "minTemp",
+                "type": "int256"
+            },
+            {
+                "name": "maxTemp",
+                "type": "int256"
+            },
+            {
+                "name": "verificationCount",
+                "type": "uint256"
+            },
+            {
+                "name": "isAuthentic",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "name": "batchId",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "name": "productName",
+                "type": "string"
+            },
+            {
+                "indexed": true,
+                "name": "manufacturer",
+                "type": "address"
+            }
+        ],
+        "name": "BatchCreated",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "name": "batchId",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "name": "location",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "name": "temperature",
+                "type": "int256"
+            },
+            {
+                "indexed": true,
+                "name": "loggedBy",
+                "type": "address"
+            }
+        ],
+        "name": "CheckpointLogged",
+        "type": "event"
+    }
+]
