@@ -20,50 +20,48 @@ contract TraceFlow {
 
     int256 public constant MIN_TEMP = -10;
     int256 public constant MAX_TEMP = 45;
-    int256 private constant TEMP_MIN_ALLOWED = -50;
-    int256 private constant TEMP_MAX_ALLOWED = 60;
 
     // ============================================================
     // STRUCTS
     // ============================================================
 
     struct Checkpoint {
-        address loggedBy;
+        string location;
         uint256 timestamp;
         int256 temperature;
-        bool tempAlert;
-        string location;
+        address loggedBy;
         string notes;
+        bool tempAlert;
     }
 
-    // OPTIMIZATION: Struct field reordering for storage slot packing
-    // Packed: address(20) + uint256(32) + int256(32) + bool(1) = 85 bytes -> 3 slots optimized
     struct Batch {
-        address manufacturer;
-        uint256 createdAt;
-        uint256 estimatedDeliveryDate;
-        int256 avgTemp;
-        int256 minTemp;
-        int256 maxTemp;
-        uint256 verificationCount;
-        BatchStatus status;
-        bool hasAnomalies;
-        bool isAuthentic;
         string batchId;
         string productName;
         string productCategory;
+        address manufacturer;
+        uint256 createdAt;
         string manufacturingLocation;
+        BatchStatus status;
+        uint256 estimatedDeliveryDate;
+
+        uint256 checkpointCount;
+        bool hasAnomalies;
+
+        int256 avgTemp;
+        int256 minTemp;
+        int256 maxTemp;
+
+        uint256 verificationCount;
+        bool isAuthentic;
+
         Checkpoint[] journey;
     }
 
-    // OPTIMIZATION: Struct field reordering for storage packing
-    // Packed: bool(1) + address(20) + uint256(32) + uint256(32) = 85 bytes -> optimized
     struct Actor {
-        bool isActive;
-        address actorAddress;
-        uint256 joinedDate;
-        uint256 count;
         string companyName;
+        bool isActive;
+        uint256 count;
+        uint256 joinedDate;
     }
 
     // ============================================================
@@ -72,12 +70,13 @@ contract TraceFlow {
 
     address public owner;
 
-    // OPTIMIZATION: Use private mapping to avoid automatic getter generation (saves bytecode)
+    // IMPORTANT:
+    // Private mapping avoids the huge automatic getter generated
+    // by "public batches".
     mapping(string => Batch) private batches;
 
     string[] private batchIds;
 
-    // OPTIMIZATION: Combine separate Actor mappings - removed duplicate structure
     mapping(address => Actor) public manufacturers;
     mapping(address => Actor) public transporters;
 
@@ -144,11 +143,18 @@ contract TraceFlow {
         _;
     }
 
-    // OPTIMIZATION: Combined duplicate modifier logic
-    modifier onlyActiveMfg() {
+    modifier onlyMfg() {
         require(
             manufacturers[msg.sender].isActive,
             "Not an active manufacturer"
+        );
+        _;
+    }
+
+    modifier onlyActiveMfg() {
+        require(
+            manufacturers[msg.sender].isActive,
+            "Manufacturer not active"
         );
         _;
     }
@@ -184,22 +190,31 @@ contract TraceFlow {
     function registerMfg(
         string calldata _companyName
     ) external {
-        require(bytes(_companyName).length > 0, "Company name required");
+
+        require(
+            bytes(_companyName).length > 0,
+            "Company name required"
+        );
 
         Actor storage actor = manufacturers[msg.sender];
 
-        require(!actor.isActive, "Manufacturer already registered");
+        require(
+            !actor.isActive,
+            "Manufacturer already registered"
+        );
 
-        // OPTIMIZATION: Single storage block write
         actor.companyName = _companyName;
         actor.isActive = true;
         actor.count = 0;
         actor.joinedDate = block.timestamp;
-        actor.actorAddress = msg.sender;
 
         mfgList.push(msg.sender);
 
-        emit ActorRegistered(msg.sender, _companyName, "MANUFACTURER");
+        emit ActorRegistered(
+            msg.sender,
+            _companyName,
+            "MANUFACTURER"
+        );
     }
 
     // ============================================================
@@ -209,22 +224,31 @@ contract TraceFlow {
     function registerTrn(
         string calldata _companyName
     ) external {
-        require(bytes(_companyName).length > 0, "Company name required");
+
+        require(
+            bytes(_companyName).length > 0,
+            "Company name required"
+        );
 
         Actor storage actor = transporters[msg.sender];
 
-        require(!actor.isActive, "Transporter already registered");
+        require(
+            !actor.isActive,
+            "Transporter already registered"
+        );
 
-        // OPTIMIZATION: Single storage block write
         actor.companyName = _companyName;
         actor.isActive = true;
         actor.count = 0;
         actor.joinedDate = block.timestamp;
-        actor.actorAddress = msg.sender;
 
         trnList.push(msg.sender);
 
-        emit ActorRegistered(msg.sender, _companyName, "TRANSPORTER");
+        emit ActorRegistered(
+            msg.sender,
+            _companyName,
+            "TRANSPORTER"
+        );
     }
 
     // ============================================================
@@ -241,7 +265,11 @@ contract TraceFlow {
         external
         onlyActiveMfg
     {
-        require(bytes(_batchId).length > 0, "Batch ID required");
+        require(
+            bytes(_batchId).length > 0,
+            "Batch ID required"
+        );
+
         require(
             bytes(batches[_batchId].batchId).length == 0,
             "Batch already exists"
@@ -249,7 +277,6 @@ contract TraceFlow {
 
         Batch storage newBatch = batches[_batchId];
 
-        // OPTIMIZATION: Consolidated storage writes (batch initialization)
         newBatch.batchId = _batchId;
         newBatch.productName = _productName;
         newBatch.productCategory = _productCategory;
@@ -258,18 +285,27 @@ contract TraceFlow {
         newBatch.manufacturingLocation = _manufacturingLocation;
         newBatch.status = BatchStatus.CREATED;
         newBatch.estimatedDeliveryDate = _estimatedDeliveryDate;
+
+        newBatch.checkpointCount = 0;
         newBatch.hasAnomalies = false;
-        newBatch.isAuthentic = false;
+
         newBatch.avgTemp = 0;
         newBatch.minTemp = 0;
         newBatch.maxTemp = 0;
+
         newBatch.verificationCount = 0;
+        newBatch.isAuthentic = false;
 
         batchIds.push(_batchId);
         mfgBatches[msg.sender].push(_batchId);
+
         manufacturers[msg.sender].count++;
 
-        emit BatchCreated(_batchId, _productName, msg.sender);
+        emit BatchCreated(
+            _batchId,
+            _productName,
+            msg.sender
+        );
     }
 
     // ============================================================
@@ -286,61 +322,81 @@ contract TraceFlow {
         batchExists(_batchId)
         onlyActiveTrn
     {
-        // OPTIMIZATION: Combined temperature validation with constants
         require(
-            _temperature >= TEMP_MIN_ALLOWED &&
-            _temperature <= TEMP_MAX_ALLOWED,
+            _temperature >= -50 &&
+            _temperature <= 60,
             "Temperature out of allowed range"
         );
 
         Batch storage batch = batches[_batchId];
 
-        // OPTIMIZATION: Reordered fields to match storage layout - fewer storage accesses
-        bool tempAlert = (_temperature < MIN_TEMP || _temperature > MAX_TEMP);
-
         Checkpoint memory checkpoint = Checkpoint({
-            loggedBy: msg.sender,
+            location: _location,
             timestamp: block.timestamp,
             temperature: _temperature,
-            tempAlert: tempAlert,
-            location: _location,
-            notes: _notes
+            loggedBy: msg.sender,
+            notes: _notes,
+            tempAlert: (
+                _temperature < MIN_TEMP ||
+                _temperature > MAX_TEMP
+            )
         });
 
         batch.journey.push(checkpoint);
 
-        // OPTIMIZATION: Cache length to avoid multiple SLOAD operations
-        uint256 journeyLength = batch.journey.length;
+        uint256 newCount = batch.checkpointCount + 1;
+        batch.checkpointCount = newCount;
 
-        // OPTIMIZATION: Consolidated temperature tracking logic
-        if (journeyLength == 1) {
+        // First temperature
+        if (newCount == 1) {
+
             batch.minTemp = _temperature;
             batch.maxTemp = _temperature;
             batch.avgTemp = _temperature;
+
         } else {
+
             if (_temperature < batch.minTemp) {
                 batch.minTemp = _temperature;
             }
+
             if (_temperature > batch.maxTemp) {
                 batch.maxTemp = _temperature;
             }
-            // OPTIMIZATION: Simplified average calculation to avoid redundant operations
-            batch.avgTemp = (batch.avgTemp * int256(journeyLength - 1) + _temperature) / int256(journeyLength);
+
+            batch.avgTemp =
+                (
+                    batch.avgTemp * int256(newCount - 1)
+                    + _temperature
+                )
+                / int256(newCount);
         }
 
-        // OPTIMIZATION: Single conditional block for anomalies
-        if (tempAlert) {
+        if (checkpoint.tempAlert) {
             batch.hasAnomalies = true;
-            emit TemperatureAlert(_batchId, _temperature, _location);
+
+            emit TemperatureAlert(
+                _batchId,
+                _temperature,
+                _location
+            );
         }
 
-        // OPTIMIZATION: Single status update (avoid redundant writes)
         batch.status = BatchStatus.IN_TRANSIT;
 
         trnBatches[msg.sender].push(_batchId);
 
-        emit CheckpointLogged(_batchId, _location, _temperature, msg.sender);
-        emit BatchStatusChanged(_batchId, BatchStatus.IN_TRANSIT);
+        emit CheckpointLogged(
+            _batchId,
+            _location,
+            _temperature,
+            msg.sender
+        );
+
+        emit BatchStatusChanged(
+            _batchId,
+            BatchStatus.IN_TRANSIT
+        );
     }
 
     // ============================================================
@@ -355,8 +411,13 @@ contract TraceFlow {
         onlyActiveTrn
     {
         Batch storage batch = batches[_batchId];
+
         batch.status = BatchStatus.DELIVERED;
-        emit BatchStatusChanged(_batchId, BatchStatus.DELIVERED);
+
+        emit BatchStatusChanged(
+            _batchId,
+            BatchStatus.DELIVERED
+        );
     }
 
     // ============================================================
@@ -373,16 +434,24 @@ contract TraceFlow {
         Batch storage batch = batches[_batchId];
 
         batch.verificationCount++;
+
         verifications[msg.sender].push(_batchId);
 
-        // OPTIMIZATION: Single conditional for status change
         if (!batch.isAuthentic) {
             batch.isAuthentic = true;
             batch.status = BatchStatus.VERIFIED;
-            emit BatchStatusChanged(_batchId, BatchStatus.VERIFIED);
+
+            emit BatchStatusChanged(
+                _batchId,
+                BatchStatus.VERIFIED
+            );
         }
 
-        emit BatchVerified(_batchId, msg.sender);
+        emit BatchVerified(
+            _batchId,
+            msg.sender
+        );
+
         return batch.isAuthentic;
     }
 
@@ -408,6 +477,7 @@ contract TraceFlow {
         )
     {
         Batch storage batch = batches[_batchId];
+
         return (
             batch.batchId,
             batch.productName,
@@ -441,8 +511,9 @@ contract TraceFlow {
         )
     {
         Batch storage batch = batches[_batchId];
+
         return (
-            batch.journey.length,
+            batch.checkpointCount,
             batch.hasAnomalies,
             batch.avgTemp,
             batch.minTemp,
@@ -487,7 +558,9 @@ contract TraceFlow {
             bool tempAlert
         )
     {
-        Checkpoint storage checkpoint = batches[_batchId].journey[_index];
+        Checkpoint storage checkpoint =
+            batches[_batchId].journey[_index];
+
         return (
             checkpoint.location,
             checkpoint.timestamp,
@@ -620,6 +693,7 @@ contract TraceFlow {
         )
     {
         Actor storage actor = manufacturers[_manufacturer];
+
         return (
             actor.companyName,
             actor.isActive,
@@ -645,6 +719,7 @@ contract TraceFlow {
         )
     {
         Actor storage actor = transporters[_transporter];
+
         return (
             actor.companyName,
             actor.isActive,
@@ -663,7 +738,11 @@ contract TraceFlow {
         external
         onlyOwner
     {
-        require(manufacturers[_manufacturer].isActive, "Already inactive");
+        require(
+            manufacturers[_manufacturer].isActive,
+            "Already inactive"
+        );
+
         manufacturers[_manufacturer].isActive = false;
     }
 
@@ -677,7 +756,11 @@ contract TraceFlow {
         external
         onlyOwner
     {
-        require(!manufacturers[_manufacturer].isActive, "Already active");
+        require(
+            !manufacturers[_manufacturer].isActive,
+            "Already active"
+        );
+
         manufacturers[_manufacturer].isActive = true;
     }
 
@@ -691,7 +774,11 @@ contract TraceFlow {
         external
         onlyOwner
     {
-        require(transporters[_transporter].isActive, "Already inactive");
+        require(
+            transporters[_transporter].isActive,
+            "Already inactive"
+        );
+
         transporters[_transporter].isActive = false;
     }
 
@@ -705,7 +792,11 @@ contract TraceFlow {
         external
         onlyOwner
     {
-        require(!transporters[_transporter].isActive, "Already active");
+        require(
+            !transporters[_transporter].isActive,
+            "Already active"
+        );
+
         transporters[_transporter].isActive = true;
     }
 }

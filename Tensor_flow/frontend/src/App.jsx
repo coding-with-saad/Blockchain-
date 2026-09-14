@@ -7,7 +7,7 @@ import LogCheckpoint from './components/LogCheckpoint'
 import VerifyBatch from './components/VerifyBatch'
 import BatchList from './components/BatchList'
 import JourneyTimeline from './components/JourneyTimeline'
-import { getCurrentAccount, requestAccounts } from './utils/web3'
+import { getCurrentAccount, requestAccounts, initWeb3 } from './utils/web3'
 
 export default function App() {
     const [account, setAccount] = useState(null)
@@ -23,6 +23,8 @@ export default function App() {
         try {
             const currentAccount = await getCurrentAccount()
             if (currentAccount) {
+                // IMPORTANT: Initialize Web3 when existing account is found
+                await initWeb3()
                 setAccount(currentAccount)
             }
         } catch (error) {
@@ -49,6 +51,7 @@ export default function App() {
     const handleConnect = async () => {
         try {
             const accounts = await requestAccounts()
+            await initWeb3()
             setAccount(accounts[0])
             showMessage('success', 'Wallet connected successfully!')
         } catch (error) {
@@ -99,8 +102,8 @@ export default function App() {
             {/* Message Toast */}
             {message.text && (
                 <div className={`fixed top-4 right-4 px-6 py-3 rounded-lg shadow-lg text-white font-medium z-40 ${message.type === 'success' ? 'bg-green-500' :
-                        message.type === 'error' ? 'bg-red-500' :
-                            'bg-blue-500'
+                    message.type === 'error' ? 'bg-red-500' :
+                        'bg-blue-500'
                     }`}>
                     {message.text}
                 </div>

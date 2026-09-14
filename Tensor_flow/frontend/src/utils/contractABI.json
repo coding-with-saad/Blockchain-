@@ -1,340 +1,52 @@
 [
     {
         "inputs": [],
-        "name": "registerMfg",
-        "outputs": [],
         "stateMutability": "nonpayable",
-        "type": "function",
-        "constant": false
-    },
-    {
-        "inputs": [
-            {
-                "name": "_companyName",
-                "type": "string"
-            }
-        ],
-        "name": "registerMfg",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "name": "_companyName",
-                "type": "string"
-            }
-        ],
-        "name": "registerTrn",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "name": "_batchId",
-                "type": "string"
-            },
-            {
-                "name": "_productName",
-                "type": "string"
-            },
-            {
-                "name": "_productCategory",
-                "type": "string"
-            },
-            {
-                "name": "_manufacturingLocation",
-                "type": "string"
-            },
-            {
-                "name": "_estimatedDeliveryDate",
-                "type": "uint256"
-            }
-        ],
-        "name": "createBatch",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "name": "_batchId",
-                "type": "string"
-            },
-            {
-                "name": "_location",
-                "type": "string"
-            },
-            {
-                "name": "_temperature",
-                "type": "int256"
-            },
-            {
-                "name": "_notes",
-                "type": "string"
-            }
-        ],
-        "name": "logCheckpoint",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "name": "_batchId",
-                "type": "string"
-            }
-        ],
-        "name": "verifyBatch",
-        "outputs": [
-            {
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "name": "_batchId",
-                "type": "string"
-            }
-        ],
-        "name": "getBatchInfo",
-        "outputs": [
-            {
-                "components": [
-                    {
-                        "name": "batchId",
-                        "type": "string"
-                    },
-                    {
-                        "name": "productName",
-                        "type": "string"
-                    },
-                    {
-                        "name": "productCategory",
-                        "type": "string"
-                    },
-                    {
-                        "name": "manufacturer",
-                        "type": "address"
-                    },
-                    {
-                        "name": "createdAt",
-                        "type": "uint256"
-                    },
-                    {
-                        "name": "manufacturingLocation",
-                        "type": "string"
-                    },
-                    {
-                        "name": "status",
-                        "type": "uint8"
-                    },
-                    {
-                        "name": "estimatedDeliveryDate",
-                        "type": "uint256"
-                    },
-                    {
-                        "name": "checkpointCount",
-                        "type": "uint256"
-                    },
-                    {
-                        "name": "hasAnomalies",
-                        "type": "bool"
-                    },
-                    {
-                        "name": "avgTemp",
-                        "type": "int256"
-                    },
-                    {
-                        "name": "minTemp",
-                        "type": "int256"
-                    },
-                    {
-                        "name": "maxTemp",
-                        "type": "int256"
-                    },
-                    {
-                        "name": "verificationCount",
-                        "type": "uint256"
-                    },
-                    {
-                        "name": "isAuthentic",
-                        "type": "bool"
-                    },
-                    {
-                        "name": "journey",
-                        "type": "tuple[]",
-                        "components": [
-                            {
-                                "name": "location",
-                                "type": "string"
-                            },
-                            {
-                                "name": "timestamp",
-                                "type": "uint256"
-                            },
-                            {
-                                "name": "temperature",
-                                "type": "int256"
-                            },
-                            {
-                                "name": "loggedBy",
-                                "type": "address"
-                            },
-                            {
-                                "name": "notes",
-                                "type": "string"
-                            },
-                            {
-                                "name": "tempAlert",
-                                "type": "bool"
-                            }
-                        ]
-                    }
-                ],
-                "type": "tuple"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "name": "_batchId",
-                "type": "string"
-            }
-        ],
-        "name": "getCheckpoints",
-        "outputs": [
-            {
-                "components": [
-                    {
-                        "name": "location",
-                        "type": "string"
-                    },
-                    {
-                        "name": "timestamp",
-                        "type": "uint256"
-                    },
-                    {
-                        "name": "temperature",
-                        "type": "int256"
-                    },
-                    {
-                        "name": "loggedBy",
-                        "type": "address"
-                    },
-                    {
-                        "name": "notes",
-                        "type": "string"
-                    },
-                    {
-                        "name": "tempAlert",
-                        "type": "bool"
-                    }
-                ],
-                "type": "tuple[]"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "getAllBatches",
-        "outputs": [
-            {
-                "name": "",
-                "type": "string[]"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "name": "_manufacturer",
-                "type": "address"
-            }
-        ],
-        "name": "getBatchesByMfg",
-        "outputs": [
-            {
-                "name": "",
-                "type": "string[]"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "name": "_batchId",
-                "type": "string"
-            }
-        ],
-        "name": "getStats",
-        "outputs": [
-            {
-                "name": "checkpointCount",
-                "type": "uint256"
-            },
-            {
-                "name": "hasAnomalies",
-                "type": "bool"
-            },
-            {
-                "name": "avgTemp",
-                "type": "int256"
-            },
-            {
-                "name": "minTemp",
-                "type": "int256"
-            },
-            {
-                "name": "maxTemp",
-                "type": "int256"
-            },
-            {
-                "name": "verificationCount",
-                "type": "uint256"
-            },
-            {
-                "name": "isAuthentic",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
+        "type": "constructor"
     },
     {
         "anonymous": false,
         "inputs": [
             {
                 "indexed": true,
+                "internalType": "address",
+                "name": "actor",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "companyName",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "actorType",
+                "type": "string"
+            }
+        ],
+        "name": "ActorRegistered",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "string",
                 "name": "batchId",
                 "type": "string"
             },
             {
                 "indexed": false,
+                "internalType": "string",
                 "name": "productName",
                 "type": "string"
             },
             {
                 "indexed": true,
+                "internalType": "address",
                 "name": "manufacturer",
                 "type": "address"
             }
@@ -347,26 +59,793 @@
         "inputs": [
             {
                 "indexed": true,
+                "internalType": "string",
                 "name": "batchId",
                 "type": "string"
             },
             {
                 "indexed": false,
+                "internalType": "enum TraceFlow.BatchStatus",
+                "name": "newStatus",
+                "type": "uint8"
+            }
+        ],
+        "name": "BatchStatusChanged",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "string",
+                "name": "batchId",
+                "type": "string"
+            },
+            {
+                "indexed": true,
+                "internalType": "address",
+                "name": "verifier",
+                "type": "address"
+            }
+        ],
+        "name": "BatchVerified",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "string",
+                "name": "batchId",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
                 "name": "location",
                 "type": "string"
             },
             {
                 "indexed": false,
+                "internalType": "int256",
                 "name": "temperature",
                 "type": "int256"
             },
             {
                 "indexed": true,
+                "internalType": "address",
                 "name": "loggedBy",
                 "type": "address"
             }
         ],
         "name": "CheckpointLogged",
         "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [
+            {
+                "indexed": true,
+                "internalType": "string",
+                "name": "batchId",
+                "type": "string"
+            },
+            {
+                "indexed": false,
+                "internalType": "int256",
+                "name": "temperature",
+                "type": "int256"
+            },
+            {
+                "indexed": false,
+                "internalType": "string",
+                "name": "location",
+                "type": "string"
+            }
+        ],
+        "name": "TemperatureAlert",
+        "type": "event"
+    },
+    {
+        "inputs": [],
+        "name": "MAX_TEMP",
+        "outputs": [
+            {
+                "internalType": "int256",
+                "name": "",
+                "type": "int256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "MIN_TEMP",
+        "outputs": [
+            {
+                "internalType": "int256",
+                "name": "",
+                "type": "int256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_batchId",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_productName",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_productCategory",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_manufacturingLocation",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_estimatedDeliveryDate",
+                "type": "uint256"
+            }
+        ],
+        "name": "createBatch",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_manufacturer",
+                "type": "address"
+            }
+        ],
+        "name": "deactivateMfg",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_transporter",
+                "type": "address"
+            }
+        ],
+        "name": "deactivateTrn",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getAllBatches",
+        "outputs": [
+            {
+                "internalType": "string[]",
+                "name": "",
+                "type": "string[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_batchId",
+                "type": "string"
+            }
+        ],
+        "name": "getBatchBasicInfo",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "batchId",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "productName",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "productCategory",
+                "type": "string"
+            },
+            {
+                "internalType": "address",
+                "name": "manufacturer",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "createdAt",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "manufacturingLocation",
+                "type": "string"
+            },
+            {
+                "internalType": "enum TraceFlow.BatchStatus",
+                "name": "status",
+                "type": "uint8"
+            },
+            {
+                "internalType": "uint256",
+                "name": "estimatedDeliveryDate",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_manufacturer",
+                "type": "address"
+            }
+        ],
+        "name": "getBatchesByMfg",
+        "outputs": [
+            {
+                "internalType": "string[]",
+                "name": "",
+                "type": "string[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_transporter",
+                "type": "address"
+            }
+        ],
+        "name": "getBatchesByTrn",
+        "outputs": [
+            {
+                "internalType": "string[]",
+                "name": "",
+                "type": "string[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_batchId",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_index",
+                "type": "uint256"
+            }
+        ],
+        "name": "getCheckpoint",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "location",
+                "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "timestamp",
+                "type": "uint256"
+            },
+            {
+                "internalType": "int256",
+                "name": "temperature",
+                "type": "int256"
+            },
+            {
+                "internalType": "address",
+                "name": "loggedBy",
+                "type": "address"
+            },
+            {
+                "internalType": "string",
+                "name": "notes",
+                "type": "string"
+            },
+            {
+                "internalType": "bool",
+                "name": "tempAlert",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_batchId",
+                "type": "string"
+            }
+        ],
+        "name": "getCheckpointCount",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_batchId",
+                "type": "string"
+            }
+        ],
+        "name": "getCheckpoints",
+        "outputs": [
+            {
+                "components": [
+                    {
+                        "internalType": "address",
+                        "name": "loggedBy",
+                        "type": "address"
+                    },
+                    {
+                        "internalType": "uint256",
+                        "name": "timestamp",
+                        "type": "uint256"
+                    },
+                    {
+                        "internalType": "int256",
+                        "name": "temperature",
+                        "type": "int256"
+                    },
+                    {
+                        "internalType": "bool",
+                        "name": "tempAlert",
+                        "type": "bool"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "location",
+                        "type": "string"
+                    },
+                    {
+                        "internalType": "string",
+                        "name": "notes",
+                        "type": "string"
+                    }
+                ],
+                "internalType": "struct TraceFlow.Checkpoint[]",
+                "name": "",
+                "type": "tuple[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_manufacturer",
+                "type": "address"
+            }
+        ],
+        "name": "getManufacturer",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "companyName",
+                "type": "string"
+            },
+            {
+                "internalType": "bool",
+                "name": "isActive",
+                "type": "bool"
+            },
+            {
+                "internalType": "uint256",
+                "name": "count",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "joinedDate",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getManufacturers",
+        "outputs": [
+            {
+                "internalType": "address[]",
+                "name": "",
+                "type": "address[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getOwner",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_batchId",
+                "type": "string"
+            }
+        ],
+        "name": "getStats",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "checkpointCount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "hasAnomalies",
+                "type": "bool"
+            },
+            {
+                "internalType": "int256",
+                "name": "avgTemp",
+                "type": "int256"
+            },
+            {
+                "internalType": "int256",
+                "name": "minTemp",
+                "type": "int256"
+            },
+            {
+                "internalType": "int256",
+                "name": "maxTemp",
+                "type": "int256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "verificationCount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "bool",
+                "name": "isAuthentic",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getTotalBatches",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_transporter",
+                "type": "address"
+            }
+        ],
+        "name": "getTransporter",
+        "outputs": [
+            {
+                "internalType": "string",
+                "name": "companyName",
+                "type": "string"
+            },
+            {
+                "internalType": "bool",
+                "name": "isActive",
+                "type": "bool"
+            },
+            {
+                "internalType": "uint256",
+                "name": "count",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "joinedDate",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "getTransporters",
+        "outputs": [
+            {
+                "internalType": "address[]",
+                "name": "",
+                "type": "address[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_consumer",
+                "type": "address"
+            }
+        ],
+        "name": "getVerificationsByConsumer",
+        "outputs": [
+            {
+                "internalType": "string[]",
+                "name": "",
+                "type": "string[]"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_batchId",
+                "type": "string"
+            },
+            {
+                "internalType": "string",
+                "name": "_location",
+                "type": "string"
+            },
+            {
+                "internalType": "int256",
+                "name": "_temperature",
+                "type": "int256"
+            },
+            {
+                "internalType": "string",
+                "name": "_notes",
+                "type": "string"
+            }
+        ],
+        "name": "logCheckpoint",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "manufacturers",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "isActive",
+                "type": "bool"
+            },
+            {
+                "internalType": "address",
+                "name": "actorAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "joinedDate",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "count",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "companyName",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_batchId",
+                "type": "string"
+            }
+        ],
+        "name": "markDelivered",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "owner",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_manufacturer",
+                "type": "address"
+            }
+        ],
+        "name": "reactivateMfg",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_transporter",
+                "type": "address"
+            }
+        ],
+        "name": "reactivateTrn",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_companyName",
+                "type": "string"
+            }
+        ],
+        "name": "registerMfg",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_companyName",
+                "type": "string"
+            }
+        ],
+        "name": "registerTrn",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "transporters",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "isActive",
+                "type": "bool"
+            },
+            {
+                "internalType": "address",
+                "name": "actorAddress",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "joinedDate",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "count",
+                "type": "uint256"
+            },
+            {
+                "internalType": "string",
+                "name": "companyName",
+                "type": "string"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_batchId",
+                "type": "string"
+            }
+        ],
+        "name": "verifyBatch",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
     }
 ]
